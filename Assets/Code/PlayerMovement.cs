@@ -19,21 +19,15 @@ public class PlayerMovement : MonoBehaviour
   
     void Update()
     {
-        move = Input.GetAxis("Horizontel");
+        move = Input.GetAxis("Horizontal");
         rb2d.linearVelocity = new Vector2(move * Speed, rb2d.linearVelocity.y);
 
-        if(Input.GetButtonDown("Jump") && !IsJumping)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            rb2d.AddForce(new Vector2(rb2d.linearVelocity.x, JumpForce));
+            rb2d.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
 
             Debug.Log("Jump");
         }
     }
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            IsJumping = true;
-        }
-    }
+ 
 }
